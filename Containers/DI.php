@@ -16,12 +16,10 @@
  */
 
 use Illuminate\Contracts\Container\Container as IlluminateContainer;
-use Illuminate\Database\ConnectionInterface;
 use Pimple\Container as PimpleContainer;
 
 class DI extends Container implements ContainerInterface
 {
-    /** @var ConnectionInterface[] */
     protected static $dependency_containers;
 
     /** @var bool */
@@ -30,7 +28,6 @@ class DI extends Container implements ContainerInterface
     /** @var static */
     protected static $instance;
 
-    /** @var ConnectionInterface[] */
     protected static $service_locators;
 
     /**
@@ -236,7 +233,7 @@ class DI extends Container implements ContainerInterface
      * **Add a new service locator container to the internal collection.**
      *
      * @param string              $key             Internal name.
-     * @param ConnectionInterface $service_locator A service locator or container class.
+     * @param ContainerInterface $service_locator A service locator or container class.
      */
     public static function addServiceContainer($key, $service_locator)
     {
@@ -345,7 +342,7 @@ class DI extends Container implements ContainerInterface
      *
      * @param string $name
      *
-     * @return ConnectionInterface[]
+     * @return ContainerInterface[]
      */
     public static function getDependencyContainer($name = 'nine')
     {
