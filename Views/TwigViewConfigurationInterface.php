@@ -6,9 +6,6 @@
  * @author  Greg Truesdell <odd.greg@gmail.com>
  */
 
-use Nine\Collections\Scope;
-use Nine\Events\Events;
-
 interface TwigViewConfigurationInterface extends ViewConfigurationInterface
 {
     /**
@@ -16,6 +13,6 @@ interface TwigViewConfigurationInterface extends ViewConfigurationInterface
      *
      * @return callable
      */
-    public function finder() : callable ;
+    public function finder() : callable;
 
 }

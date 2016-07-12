@@ -273,8 +273,8 @@ class TwigView extends AbstractView
 
     private function set_globals()
     {
-        $this->twig->addGlobal('forge', forge());
-        $this->twig->addGlobal('context', forge('context'));
+        //$this->twig->addGlobal('forge', forge());
+        //$this->twig->addGlobal('context', forge('context'));
     }
 
     /**
