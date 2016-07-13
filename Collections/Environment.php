@@ -6,7 +6,7 @@
  * @author  Greg Truesdell <odd.greg@gmail.com>
  */
 
-use josegonzalez\Dotenv\Loader;
+use Dotenv\Dotenv;
 use Nine\Collections\Exceptions\InvalidEnvironmentKeyException;
 use Nine\Collections\Interfaces\EnvironmentInterface;
 
@@ -14,9 +14,6 @@ class Environment implements EnvironmentInterface
 {
     /** @var array */
     private $detectedEnvironment;
-
-    /** @var Loader  */
-    private $dotenv;
 
     /** @var string */
     private $environment;
@@ -30,11 +27,10 @@ class Environment implements EnvironmentInterface
      * @param string $dotEnvPath
      * @param string $key
      */
-    public function __construct(string $dotEnvPath = '.env', string $key = 'APP_ENV')
+    public function __construct(string $dotEnvPath, string $key = 'APP_ENV')
     {
         // Environment depends on the feature set of josegonzalez\dotenv.
-        $this->dotenv = new Loader($dotEnvPath);
-        $this->dotenv->parse()->toEnv(TRUE);
+        (new Dotenv($dotEnvPath))->overload();
 
         $this->environmentKey = $key;
         $this->environment = $this->queryEnv($key);
@@ -55,10 +51,10 @@ class Environment implements EnvironmentInterface
         }
 
         $this->detectedEnvironment = [
-            'developing' => env('APP_ENV', 'PRODUCTION') !== 'PRODUCTION',
-            'app_key'    => env('APP_KEY', '$invalid$this&key%must#be@changed'),
-            'debugging'  => env('DEBUG', FALSE),
-            'testing'    => env('TESTING', FALSE),
+            'developing' => $this->get('APP_ENV', 'PRODUCTION') !== 'PRODUCTION',
+            'app_key'    => $this->get('APP_KEY', '$invalid$this&key%must#be@changed'),
+            'debugging'  => $this->get('DEBUG', FALSE),
+            'testing'    => $this->get('TESTING', FALSE),
         ];
 
         return $this->detectedEnvironment;
@@ -74,7 +70,7 @@ class Environment implements EnvironmentInterface
      */
     public function get(string $key, $default = NULL)
     {
-        return $key === '*' ? $this->dotenv->toArray() : $this->queryEnv($key, $default);
+        return $key === '*' ? $this->detectedEnvironment : $this->queryEnv($key, $default);
     }
 
     /**
@@ -94,7 +90,8 @@ class Environment implements EnvironmentInterface
      */
     public function has($key)
     {
-        return NULL !== env($key, NULL);
+        return NULL !== env(strtoupper($key), NULL);
+        //return NULL !== $this->queryEnv($key, NULL);
     }
 
     /**
@@ -107,7 +104,6 @@ class Environment implements EnvironmentInterface
      */
     private function queryEnv($key, $default = NULL)
     {
-
         // first check the internal registry
         if (isset($this->detectedEnvironment[$key])) {
             return $this->detectedEnvironment[$key];
@@ -169,6 +165,8 @@ class Environment implements EnvironmentInterface
             case '(null)':
                 return NULL;
         }
+
+        return $value;
     }
 
 }
