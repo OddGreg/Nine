@@ -105,11 +105,7 @@ trait Strings
      */
     public static function ends_with($substring, $string)
     {
-        // search forward starting from end minus needle length characters
-        return
-            ($substring === '')
-            or (($temp = strlen($string) - strlen($substring)) >= 0
-                and strpos($string, $substring, $temp) !== FALSE);
+        return $substring === '' ? TRUE : (substr($string, -strlen($substring)) === $substring);
     }
 
     /**
@@ -265,13 +261,7 @@ trait Strings
      */
     public static function starts_with($substring, $string)
     {
-        foreach ((array) $substring as $needle) {
-            if ($needle !== '' && strpos($string, $needle) === 0) {
-                return TRUE;
-            }
-        }
-
-        return FALSE;
+        return 0 === strpos($string, $substring);
     }
 
     /**
@@ -284,12 +274,7 @@ trait Strings
      */
     public static function str_has($substring, $string)
     {
-        foreach ((array) $substring as $needle)
-            if ($needle !== '' && strpos($string, $needle) !== FALSE) {
-                return TRUE;
-            }
-
-        return FALSE;
+        return FALSE !== strpos($string, $substring);
     }
 
     /**
