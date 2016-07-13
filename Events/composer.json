@@ -1,6 +1,6 @@
 {
-    "name"             : "oddgreg/nine",
-    "description"      : "A collection of sub-packages for PHP.",
+    "name"             : "oddgreg/nine-containers",
+    "description"      : "Utility container classes.",
     "type"             : "library",
     "license"          : "MIT",
     "authors"          : [
@@ -10,6 +10,7 @@
         }
     ],
     "minimum-stability": "dev",
-    "require"          : {
+    "require": {
+        "symfony/event-dispatcher": "^3.1"
     }
 }

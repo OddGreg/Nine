@@ -27,7 +27,6 @@
  * @author  Greg Truesdell <odd.greg@gmail.com>
  */
 
-use Illuminate\Database\Eloquent\Model;
 use Nine\Collections\Collection;
 use Nine\Collections\Scope;
 use Nine\Containers\Forge;
@@ -162,21 +161,6 @@ if ( ! function_exists('memoize')) {
 
             return $results[$key];
         };
-    }
-}
-
-if ( ! function_exists('model_id')) {
-
-    /**
-     * returns the ID of a model or the value of the argument.
-     *
-     * @param Model|integer|callable $model
-     *
-     * @return integer
-     */
-    function model_id($model)
-    {
-        return $model instanceof Model ? $model->{'id'} : value($model);
     }
 }
 

@@ -1,0 +1,23 @@
+{
+    "name"             : "oddgreg/nine-database",
+    "description"      : "Utility database classes.",
+    "type"             : "library",
+    "license"          : "MIT",
+    "authors"          : [
+        {
+            "name" : "Greg Truesdell",
+            "email": "odd.greg@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require"          : {
+        "aura/sql"                 : "^2.5",
+        "illuminate/database"      : "^5.2",
+        "aura/sqlquery"            : "^2.6",
+        "symfony/console"          : "^3.1",
+        "symfony/process"          : "^3.1",
+        "mtdowling/cron-expression": "^1.1",
+        "guzzlehttp/guzzle"        : "^6.2",
+        "symfony/event-dispatcher": "^3.1"
+    }
+}

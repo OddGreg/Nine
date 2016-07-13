@@ -1,6 +1,6 @@
 {
     "name"             : "oddgreg/nine",
-    "description"      : "A collection of sub-packages for PHP.",
+    "description"      : "A collection of support classes and functions.",
     "type"             : "library",
     "license"          : "MIT",
     "authors"          : [
@@ -11,5 +11,9 @@
     ],
     "minimum-stability": "dev",
     "require"          : {
+        "pimple/pimple"          : "^3.0",
+        "psr/log"                : "^1.0",
+        "symfony/http-foundation": "^3.1",
+        "illuminate/support"     : "^5.2"
     }
 }

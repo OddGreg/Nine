@@ -1,6 +1,6 @@
 {
-    "name"             : "oddgreg/nine",
-    "description"      : "A collection of sub-packages for PHP.",
+    "name"             : "oddgreg/nine-collections",
+    "description"      : "Utility collection classes.",
     "type"             : "library",
     "license"          : "MIT",
     "authors"          : [

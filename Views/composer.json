@@ -1,6 +1,6 @@
 {
     "name"             : "oddgreg/nine",
-    "description"      : "A collection of sub-packages for PHP.",
+    "description"      : "View and template engines.",
     "type"             : "library",
     "license"          : "MIT",
     "authors"          : [
@@ -11,5 +11,9 @@
     ],
     "minimum-stability": "dev",
     "require"          : {
+        "illuminate/view"        : "^5.2",
+        "symfony/finder"         : "^3.1",
+        "symfony/http-foundation": "^3.1",
+        "twig/twig"              : "^1.24"
     }
 }
