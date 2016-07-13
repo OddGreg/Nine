@@ -11,17 +11,18 @@
     ],
     "minimum-stability": "dev",
     "require"          : {
-        "symfony/yaml"            : "^3.1",
+        "aura/sql"                : "^2.5",
+        "aura/sqlquery"           : "^2.6",
+        "illuminate/container"    : "^5.2",
+        "illuminate/database"     : "^5.2",
+        "illuminate/view"         : "^5.2",
         "nesbot/carbon"           : "^1.21",
         "pimple/pimple"           : "^3.0",
-        "illuminate/container"    : "^5.2",
+        "twig/twig"               : "^1.24",
+        "symfony/yaml"            : "^3.1",
         "symfony/event-dispatcher": "^3.1",
-        "aura/sql"                : "^2.5",
-        "illuminate/database"     : "^5.2",
-        "aura/sqlquery"           : "^2.6",
         "symfony/console"         : "^3.1",
         "symfony/finder"          : "^3.1",
-        "illuminate/view"         : "^5.2",
-        "twig/twig"               : "^1.24"
+        "vlucas/phpdotenv"        : "^2.3"
     }
 }
