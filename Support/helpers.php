@@ -31,7 +31,6 @@ use Illuminate\Database\Eloquent\Model;
 use Nine\Collections\Collection;
 use Nine\Collections\Scope;
 use Nine\Containers\Forge;
-use Psr\Log\LoggerInterface;
 
 if (PHP_VERSION_ID < 70000) {
     echo('Formula 9 requires PHP versions >= 7.0.0');
@@ -76,48 +75,6 @@ if ( ! function_exists('collect')) {
     }
 }
 
-if ( ! function_exists('applog')) {
-
-    /**
-     * Write an entry into a specific context log.
-     *
-     * Note that the written filename is "<local/logs/>$context.log".
-     *
-     * @param string $message
-     * @param string $context
-     */
-    function applog($message, $context = 'info')
-    {
-        /** @var LoggerInterface $logger */
-        static $logger;
-
-        try {
-            // try getting the framework logger
-            $logger = $logger ?: forge('logger');
-
-            // write the message
-            $logger->log($context, $message);
-
-        } catch (\InvalidArgumentException $e) {
-            throw new \LogicException('applog(): no logger is available.');
-        }
-
-    }
-}
-
-if ( ! function_exists('dlog')) {
-    /**
-     * @param        $message
-     * @param string $priority
-     */
-    function dlog($message, $priority = 'info')
-    {
-        if (env('DEBUG') and isset($app['logger'])) {
-            app('logger')->{'log'}($priority, $message);
-        }
-    }
-}
-
 if ( ! function_exists('e')) {
     /**
      * Escape HTML entities in a string.
@@ -143,21 +100,6 @@ if ( ! function_exists('elapsed_time_since_request')) {
         return ! $raw
             ? sprintf('%8.1f ms', (microtime(TRUE) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000)
             : (microtime(TRUE) - $_SERVER['REQUEST_TIME_FLOAT']) * 1000;
-    }
-}
-
-/**
- * Kernel
- */
-if ( ! function_exists('kernel')) {
-
-    function kernel($property = NULL)
-    {
-        // object cache
-        static $kernel = NULL;
-        $kernel = $kernel ?: $kernel = forge('kernel');
-
-        return NULL === $property ? $kernel : $kernel->{$property}();
     }
 }
 
@@ -354,14 +296,6 @@ if ( ! function_exists('throw_if_not')) {
     }
 }
 
-if ( ! function_exists('stopwatch')) {
-
-    function stopwatch($event_name = NULL)
-    {
-        return $event_name ? app('stop.watch')->{'getEvent'}($event_name) : app('stop.watch');
-    }
-}
-
 if ( ! function_exists('tail')) {
     // blatantly stolen from Ionuț G. Stan on stack overflow
     function tail($filename) : string
@@ -395,20 +329,6 @@ if ( ! function_exists('tail')) {
         }
 
         return $line;
-    }
-}
-
-if ( ! function_exists('dd')) {
-
-    /**
-     * Override Illuminate dd()
-     *
-     * @param null $value
-     * @param int  $depth
-     */
-    function dd($value = NULL, $depth = 8)
-    {
-        ddump($value, $depth);
     }
 }
 

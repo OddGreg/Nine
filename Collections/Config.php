@@ -35,7 +35,7 @@ class Config extends Collection implements ConfigInterface
      * @param string      $path     Defaults to the path in the CONFIG constant.
      * @param string|NULL $filename Defaults to the filename in the self::COMPILED_CONFIG_FILENAME constant.
      */
-    public function compile(string $path = CONFIG, string $filename = self::COMPILED_CONFIG_FILENAME)
+    public function compile(string $path, string $filename = self::COMPILED_CONFIG_FILENAME)
     {
         if ( ! $this->has('compiled')) {
             $this['compiled'] = $path . $filename;
@@ -61,7 +61,7 @@ class Config extends Collection implements ConfigInterface
      * @param string $basePath
      * @param string $compiledFilename
      */
-    public function importCompiledFile(string $basePath = CONFIG, string $compiledFilename = self::COMPILED_CONFIG_FILENAME)
+    public function importCompiledFile(string $basePath, string $compiledFilename = self::COMPILED_CONFIG_FILENAME)
     {
         $import = include $basePath . $compiledFilename;
 
@@ -90,9 +90,9 @@ class Config extends Collection implements ConfigInterface
     public function importFolder($basePath, $mask = '*.php') : Config
     {
         // determine if the requested folder has been compiled.
-        if ($mask === '*.php' and $this->isCompiled()) {
+        if ($mask === '*.php' and $this->isCompiled($basePath)) {
             // yes, so import the compiled file instead.
-            $this->importCompiledFile();
+            $this->importCompiledFile($basePath);
 
             return $this;
         }
@@ -114,7 +114,7 @@ class Config extends Collection implements ConfigInterface
      *
      * @return bool
      */
-    public function isCompiled(string $basePath = CONFIG, string $compiledFilename = self::COMPILED_CONFIG_FILENAME) : bool
+    public function isCompiled(string $basePath, string $compiledFilename = self::COMPILED_CONFIG_FILENAME) : bool
     {
         return file_exists($basePath . $compiledFilename);
     }
